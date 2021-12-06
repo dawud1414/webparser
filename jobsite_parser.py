@@ -1,3 +1,4 @@
+import urllib
 import requests
 from bs4 import BeautifulSoup
 from email.mime.text import  MIMEText
@@ -6,31 +7,35 @@ import smtplib
 import csv
 
 
-for i in range(0,20,10):
-    
-    url = requests.get(f"https://www.indeed.com/jobs?q=data%20analyst%20&l=Washington%2C%20DC&start=0").text
-    soup = BeautifulSoup(url, 'html.parser')
+def load_indeed_jobs_div(job_title, location):
+    getVars = {'j' : job_title, 'l' : location, 'fromage' : 'last', 'sort' : 'date'}
+    url = ('https://www.indeed.com/m/jobs?' + urllib.parse.urlencode(getVars))
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, "html.parser")
+    job_soup = soup.find(id="resultsBody")
+    return job_soup
  
+ #Get job Title
+def job_title(job_elem):
+    title_elem = job_elem.find('h2', class_='title')
+    title = title_elem.text.strip()
+    return title
+  
+ #Get company name
+def company_name(job_elem):
+    company_elem = job_elem.find('span', class_='company')
+    company = company_elem.text.strip()
+    return company
 
-    for url in soup.find_all('div',{"class":"job_seen_beacon"}):
+#Extract links
+def extract_link(job_elem):
+    link = job_elem.find('a')['href']
+    link = 'www.indeed.com/m/' + link
+    return link
 
-        i = url.find('tbody') # go into table
-        a = i.find('tr') # go further into table
-        
-        
-        # gets job title
-        for j in a.find_all('h2',{'class': 'jobTitle jobTitle-color-purple jobTitle-newJob'}):
-          job_title = j.find_all('span')[1].get_text()
-          print(job_title)
-          
-        # gets company name  
-        
-        for c in a.find_all('pre'):
-          company = c.find_all('span')[0].get_text()
-          print(company) 
-        
-        #gets company location
-
-        company_location = c.find_all('div')[0].get_text()
-        print(company_location)
+#Extract dates
+def extract_date(job_elem):
+    date_elem = job_elem.find('span', class_='date')
+    date = date_elem.text.strip()
+    return date
         
