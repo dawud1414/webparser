@@ -62,9 +62,3 @@ def main(position, location):
         
 main('data scientist', 'maryland')
 
-#Extract dates
-def extract_date(job_elem):
-    date_elem = job_elem.find('span', class_='date')
-    date = date_elem.text.strip()
-    return date
-        
