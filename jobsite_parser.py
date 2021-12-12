@@ -60,5 +60,6 @@ def main(position, location):
         writer.writerow(['JobTitle', 'Company', 'Date_Listed', 'Extracted Date', 'Salary/Shift', 'Location', 'Summary'])
         writer.writerows(records)
         
-main('data scientist', 'maryland')
+if __name__ == '__main__':       
+    main('data scientist', 'maryland')
 
