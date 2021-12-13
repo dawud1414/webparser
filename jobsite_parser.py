@@ -59,6 +59,17 @@ def main(position, location):
         writer = csv.writer(f)
         writer.writerow(['JobTitle', 'Company', 'Date_Listed', 'Extracted Date', 'Salary/Shift', 'Location', 'Summary'])
         writer.writerows(records)
+    
+    #email_function
+    smtp_server = "smtp.gmail.com"
+    port = 465
+    sender_email = "finalwebscrape@gmail.com"
+    password = "Passwordis326"
+
+    context = ssl.create_default_context(records)
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+        server.login(sender_email, password)
         
 if __name__ == '__main__':       
     main('data scientist', 'maryland')
