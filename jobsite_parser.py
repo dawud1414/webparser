@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from email.mime.text import  MIMEText
 from datetime import datetime
 import pandas as pd
-import smtplib
+import smtplib,ssl
 import csv
 
 
