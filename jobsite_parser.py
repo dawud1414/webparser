@@ -38,7 +38,7 @@ def extract(job):
 
 def email():
     emailfrom = "finalwebscrape@gmail.com"
-    emailto = "arifun.nabi18@gmail.com"
+    emailto = "finalwebscrape@gmail.com"
     fileToSend = "new.csv"
     username = "finalwebscrape@gmail.com"
     password = "Passwordis326"
