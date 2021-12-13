@@ -46,8 +46,8 @@ def email():
     msg = MIMEMultipart()
     msg["From"] = emailfrom
     msg["To"] = emailto
-    msg["Subject"] = "help I cannot send an attachment to save my life"
-    msg.preamble = "help I cannot send an attachment to save my life"
+    msg["Subject"] = "Job information from Indeed"
+    msg.preamble = "Job information from Indeed"
 
     ctype, encoding = mimetypes.guess_type(fileToSend)
     if ctype is None or encoding is not None:
