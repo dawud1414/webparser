@@ -1,11 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
-from email.mime.text import  MIMEText
+import mimetypes
 from datetime import datetime
 import pandas as pd
-import smtplib,ssl
+import smtplib
 import csv
-
+from email.mime.multipart import MIMEMultipart
+from email import encoders
+from email.mime.base import MIMEBase
 
 def get_url(position, location):
     """Generate url from position and location"""
@@ -34,6 +36,39 @@ def extract(job):
     record = (title, company,post_date, date, salary, location, summary)
     return record
 
+def email():
+    emailfrom = "finalwebscrape@gmail.com"
+    emailto = "arifun.nabi18@gmail.com"
+    fileToSend = "new.csv"
+    username = "finalwebscrape@gmail.com"
+    password = "Passwordis326"
+
+    msg = MIMEMultipart()
+    msg["From"] = emailfrom
+    msg["To"] = emailto
+    msg["Subject"] = "help I cannot send an attachment to save my life"
+    msg.preamble = "help I cannot send an attachment to save my life"
+
+    ctype, encoding = mimetypes.guess_type(fileToSend)
+    if ctype is None or encoding is not None:
+        ctype = "application/octet-stream"
+
+    maintype, subtype = ctype.split("/", 1)
+    fp = open(fileToSend, "rb")
+    attachment = MIMEBase(maintype, subtype)
+    attachment.set_payload(fp.read())
+    fp.close()
+    encoders.encode_base64(attachment)
+    attachment.add_header("Content-Disposition", "attachment", filename=fileToSend)
+    msg.attach(attachment)
+
+    server = smtplib.SMTP("smtp.gmail.com:587")
+    server.starttls()
+    server.login(username,password)
+    server.sendmail(emailfrom, emailto, msg.as_string())
+    server.quit()
+
+
 
 def main(position, location):
     """Main function run the program and save the data in a csv file"""
@@ -60,17 +95,9 @@ def main(position, location):
         writer.writerow(['JobTitle', 'Company', 'Date_Listed', 'Extracted Date', 'Salary/Shift', 'Location', 'Summary'])
         writer.writerows(records)
     
-    #email_function
-    smtp_server = "smtp.gmail.com"
-    port = 465
-    sender_email = "finalwebscrape@gmail.com"
-    password = "Passwordis326"
 
-    context = ssl.create_default_context(records)
-
-    with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
-        server.login(sender_email, password)
-        
+    if email:
+        email()
 if __name__ == '__main__':       
     main('data scientist', 'maryland')
 
