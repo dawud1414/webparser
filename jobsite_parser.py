@@ -38,6 +38,7 @@ def extract(job):
     return record
 
 def email():
+    """This function uses yagmail to send email"""
     server = smtplib.SMTP("smtp.gmail.com:587")
 
     yag = yagmail.SMTP('finalwebscrape@gmail.com', 'Passwordis326')
@@ -45,6 +46,7 @@ def email():
 
 def main(position, location):
     """Main function run the program and save the data in a csv file"""
+    """Send csv file to the user through email"""
     records = []
     url = get_url(position, location)
     
