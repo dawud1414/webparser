@@ -1,8 +1,9 @@
+import yagmail
+import pytest
 import requests
 from bs4 import BeautifulSoup
 import mimetypes
 from datetime import datetime
-import pandas as pd
 import smtplib
 import csv
 from email.mime.multipart import MIMEMultipart
@@ -37,38 +38,10 @@ def extract(job):
     return record
 
 def email():
-    emailfrom = "finalwebscrape@gmail.com"
-    emailto = "finalwebscrape@gmail.com"
-    fileToSend = "new.csv"
-    username = "finalwebscrape@gmail.com"
-    password = "Passwordis326"
-
-    msg = MIMEMultipart()
-    msg["From"] = emailfrom
-    msg["To"] = emailto
-    msg["Subject"] = "Job information from Indeed"
-    msg.preamble = "Job information from Indeed"
-
-    ctype, encoding = mimetypes.guess_type(fileToSend)
-    if ctype is None or encoding is not None:
-        ctype = "application/octet-stream"
-
-    maintype, subtype = ctype.split("/", 1)
-    fp = open(fileToSend, "rb")
-    attachment = MIMEBase(maintype, subtype)
-    attachment.set_payload(fp.read())
-    fp.close()
-    encoders.encode_base64(attachment)
-    attachment.add_header("Content-Disposition", "attachment", filename=fileToSend)
-    msg.attach(attachment)
-
     server = smtplib.SMTP("smtp.gmail.com:587")
-    server.starttls()
-    server.login(username,password)
-    server.sendmail(emailfrom, emailto, msg.as_string())
-    server.quit()
 
-
+    yag = yagmail.SMTP('finalwebscrape@gmail.com', 'Passwordis326')
+    yag.send(to = 'finalwebscrape@gmail.com', subject= 'indeed jobs in csv', contents= 'the body', attachments= 'new.csv' )
 
 def main(position, location):
     """Main function run the program and save the data in a csv file"""
