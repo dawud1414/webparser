@@ -17,5 +17,7 @@ You will need to install following modules
 request  
 BeautifulSoup  
 mimetypes  
-datetime
-pandas
+datetime  
+pandas  
+smtplib  
+csv  
