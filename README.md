@@ -1,15 +1,13 @@
-INST 326 Project 8-Job Finder
+Project 8 - Job Finder
 
-Professor Gabriel Cruz
-
-Group members: Arifun Nabi, David Mejias, Keyun Liu
+Group members: David Mejias, Arifun Nabi, Keyun Liu
 
 Project Instruction:
 
-This project's function it to scrape the data about job title of user's selection from Indeed website. We pre-entered Data Scientist for testing. It can be changed in "if __name__ "function.  
-·It will scrap the related jot title, the company name, the data of published, salary, and address,etc.  
-·Then the data will be extract as a csv file.  
-·Finally the csv file will be send to email. The feature is set to send a email to the email filled itself. In the demo we used a new created gmail for testing.
+This project's function is to scrape data from indeed. 
+·It will scrape the job title, company name, date published, salary, address, and a brief description. 
+·Then the data will be extracted as a csv file.  
+·Finally the csv file will be sent to an email we created. 
 
 Before you run the code:  
 You will need to install following modules   
