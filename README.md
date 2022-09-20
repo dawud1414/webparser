@@ -1,6 +1,5 @@
-Project 8 - Job Finder
+Indeed Job Finder
 
-Group members: David Mejias, Arifun Nabi, Keyun Liu
 
 Project Instruction:
 
