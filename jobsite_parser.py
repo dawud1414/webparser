@@ -1,3 +1,4 @@
+# we parser to scrape data from indeed
 import yagmail
 import pytest
 import requests
